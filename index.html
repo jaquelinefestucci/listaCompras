@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="style.css">
+        <title>Lista de Compras</title>
+    </head>
+
+    <body>
+        
+        <main id="app">
+            
+            <section class="todo-list">
+                
+                
+                <h3>Lista de Compras</h3>
+                
+                <div class="all-todos">
+                    <div 
+                    v-for="(item, index) in todosVisiveis" :key="index" 
+                    class="single-todo"
+                    :class="{done : item.done}"
+                    @click="item.done = !item.done">
+                  
+                    <div class="left-side">
+                    <button class="bsoma" @click.stop="todosVisiveis[index].quantidade--" :disabled="todosVisiveis[index].quantidade <= 1">➖</button>
+                     <span class="bsoma">{{ todosVisiveis[index].quantidade }}</span>
+                     <button class="bsoma" @click.stop="todosVisiveis[index].quantidade++">➕</button>
+                    </div>
+                    <div class="center-side">
+                     <p class="texto">{{ item.text  }}</p>
+                    </div>
+                    <div class="right-side">
+                     <input id="unitario" type="number" placeholder="R$ Unit." v-model.number="todosVisiveis[index].unitario" @click.stop>
+                     <span  v-if="todosVisiveis[index].unitario"> R$ {{ (todosVisiveis[index].quantidade * todosVisiveis[index].unitario).toFixed (2)}}</span>
+                    </div>
+                   
+                    </div>
+                <div> <input type="text" placeholder="Item para compra" v-model="novoItem.text" ref="inputField"  @input="convertToUpperCase">
+                <button class="add" @click="addItem()">Adicionar</button>
+                             
+                </div>
+                <div class="total" v-if="todos.length">
+                    <p> <b>Total da compra R$ {{  totalSum}}</b></p>  
+                </div>
+
+                <div class="divisor" v-if="todos.length">
+                    <p> Dividir com alguém: </p>
+                    <p v-if="dividirQuantidade > 0"><b>R$ {{ (totalSum / dividirQuantidade).toFixed(2) }} Por pessoa.</b></p>
+                    <input id="dividir" type="number" placeholder="Qtde"v-model.number="dividirQuantidade" /> 
+                </div>
+              
+                  <div class="clear" v-if="todos.length">  
+                    <button class="bclear" @click="atualizar()">Atualizar</button>                
+                    <button class="bclear" @click="tirarCaptura">Capturar Tela</button>
+                    <button class="bclear" @click="novaLista()"> Nova Lista</button>
+                </div>
+
+                <div class="instructions">
+                    Instruções:
+                    <ul>
+                        <li>Adicione o item para compra</li>
+                        <li>Atualize a lista para excluir os itens ja comprados</li>
+                        <li>Limpe a lista armazenada</li>
+                    </ul>
+                </div>
+            </section>
+
+        </main>
+        <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+        <script src="scripts.js"></script>
+    </body>
+
+</html>

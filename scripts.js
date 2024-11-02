@@ -26,11 +26,11 @@ const todosApp = {
                 alert("Obrigatório o preenchimento do item");
             }
         },tirarCaptura: function() {
-            const areaDeCaptura = document.querySelector('.todo-list');  // Alvo a ser capturado (sua lista de compras)
+            const areaDeCaptura = document.querySelector('.todo-list');  
             html2canvas(areaDeCaptura).then(canvas => {
                 const link = document.createElement('a');
                 link.href = canvas.toDataURL('image/png');
-                link.download = 'lista_de_compras.png';  // Nome do arquivo que será baixado
+                link.download = 'lista_de_compras.png';  
                 link.click();  // Simula o clique para download
             })
         },

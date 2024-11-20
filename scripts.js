@@ -49,7 +49,7 @@ const todosApp = {
         totalSum() {
             return this.todosVisiveis.reduce((acc, item) => {
                 return acc + (item.quantidade * item.unitario || 0);
-            }, 0).toFixed(2);  // Arredonda para 2 casas decimais
+            }, 0).toFixed(2);  
         }
     },
              created() {
